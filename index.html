@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./cloudy.png">
+    <title>Weather Dashboard</title>
+
+    <!-- Google Fonts (Plus Jakarta Sans and Space Grotesk) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Radial Ambient Glowing Backdrops -->
+    <div class="ambient-glow-wrapper">
+        <div class="ambient-glow-circle glow-purple"></div>
+        <div class="ambient-glow-circle glow-blue"></div>
+        <div class="ambient-glow-circle glow-coral"></div>
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <div class="dashboard-wrapper">
+        <div class="row g-4">
+            
+            <!-- LEFT COLUMN - Tall Current Weather Panel -->
+            <div class="col-lg-4 col-12">
+                <div class="glass-panel hero-weather-panel">
+                    
+                    <!-- Static Integrated Search Panel (Protects listeners from repainting) -->
+                    <div class="hero-search-area w-100">
+                        <div class="hero-search-box">
+                            <input type="search" class="form-control hero-city-input city-input"
+                                placeholder="Search city e.g. London..."
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enter a city name to search">
+                        </div>
+                        <button type="button" class="btn hero-search-btn search-btn"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <button type="button" class="btn hero-gps-btn location-btn"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Use current location">
+                            <i class="fa-solid fa-location-dot fa-bounce"></i>
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Current Weather Segment (Injected by JS) -->
+                    <div class="current-weather w-100 d-flex flex-column align-items-center flex-grow-1">
+                        <!-- Skeleton Loading State -->
+                        <div class="hero-weather-illustration mt-4">
+                            <div class="skeleton skeleton-circle"></div>
+                        </div>
+                        <h1 class="hero-temp-large skeleton mt-3" style="width: 140px; height: 80px;"></h1>
+                        <div class="hero-condition-desc skeleton skeleton-text-block mt-3" style="width: 160px;"></div>
+                        
+                        <div class="hero-divider"></div>
+                        
+                        <div class="hero-metadata-list w-100">
+                            <div class="hero-metadata-item">
+                                <i class="fa-regular fa-calendar-days fs-5"></i>
+                                <span class="skeleton skeleton-text-block" style="width: 120px;"></span>
+                            </div>
+                            <div class="hero-metadata-item">
+                                <i class="fa-solid fa-location-dot fs-5"></i>
+                                <span class="skeleton skeleton-text-block" style="width: 150px;"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN - Next Forecast & Today's Highlight Widgets -->
+            <div class="col-lg-8 col-12">
+                <div class="right-panel-wrapper">
+                    
+                    <!-- 5-Day Horizontal Forecast Row -->
+                    <div>
+                        <h2 class="forecast-section-title">Next 5 - Days Forecast</h2>
+                        <ul class="forecast-strip weather-cards">
+                            <!-- Placeholder cards -->
+                            <li class="glass-card">
+                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
+                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
+                                <div class="forecast-metric temp"><span>-- °C</span></div>
+                            </li>
+                            <li class="glass-card">
+                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
+                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
+                                <div class="forecast-metric temp"><span>-- °C</span></div>
+                            </li>
+                            <li class="glass-card">
+                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
+                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
+                                <div class="forecast-metric temp"><span>-- °C</span></div>
+                            </li>
+                            <li class="glass-card">
+                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
+                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
+                                <div class="forecast-metric temp"><span>-- °C</span></div>
+                            </li>
+                            <li class="glass-card">
+                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
+                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
+                                <div class="forecast-metric temp"><span>-- °C</span></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Today's High-Tech Highlights Widgets Grid -->
+                    <div>
+                        <h2 class="forecast-section-title">Today's Highlights</h2>
+                        <div class="widgets-grid">
+                            
+                            <!-- Wind Status Card -->
+                            <div class="glass-card widget-card wind-card" data-bs-toggle="tooltip" title="Real-time wind speed and angle">
+                                <div class="widget-card-header">
+                                    <i class="fa-solid fa-wind"></i>
+                                    <span>Wind Status</span>
+                                </div>
+                                <div class="widget-card-value num-font">
+                                    -- <span class="fs-5 text-secondary">M/S</span>
+                                </div>
+                                <div class="wind-compass-section">
+                                    <div class="mini-compass-dial">
+                                        <div class="mini-compass-arrow" style="transform: rotate(0deg);"></div>
+                                    </div>
+                                    <span class="compass-direction-text">Direction: --°</span>
+                                </div>
+                            </div>
+
+                            <!-- Humidity Comfort Card -->
+                            <div class="glass-card widget-card humidity-card" data-bs-toggle="tooltip" title="Atmospheric moisture levels">
+                                <div class="widget-card-header">
+                                    <i class="fa-solid fa-droplet"></i>
+                                    <span>Humidity</span>
+                                </div>
+                                <div class="widget-card-value num-font">
+                                    -- <span class="fs-5 text-secondary">%</span>
+                                </div>
+                                <div class="level-meter-container">
+                                    <div class="level-meter-track">
+                                        <div class="level-meter-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="level-meter-status">
+                                        <span>Comfort</span>
+                                        <span class="level-meter-badge">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Visibility Card -->
+                            <div class="glass-card widget-card visibility-card" data-bs-toggle="tooltip" title="Horizontal visibility clearance range">
+                                <div class="widget-card-header">
+                                    <i class="fa-solid fa-eye"></i>
+                                    <span>Visibility</span>
+                                </div>
+                                <div class="widget-card-value num-font">
+                                    -- <span class="fs-5 text-secondary">KM</span>
+                                </div>
+                                <div class="visibility-gauge-container">
+                                    <div class="visibility-gauge-track">
+                                        <div class="visibility-gauge-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="visibility-gauge-status">
+                                        <span>Status</span>
+                                        <span>--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Barometer Pressure Card -->
+                            <div class="glass-card widget-card pressure-card" data-bs-toggle="tooltip" title="Barometric atmospheric pressure scale">
+                                <div class="widget-card-header">
+                                    <i class="fa-solid fa-gauge-high"></i>
+                                    <span>Air Pressure</span>
+                                </div>
+                                <div class="widget-card-value num-font">
+                                    -- <span class="fs-5 text-secondary">hPa</span>
+                                </div>
+                                <div class="barometer-scale-container">
+                                    <div class="barometer-fill-track">
+                                        <div class="barometer-pointer" style="left: 50%;"></div>
+                                    </div>
+                                    <div class="barometer-axis">
+                                        <span>950 hPa</span>
+                                        <span>Normal</span>
+                                        <span>1050 hPa</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Dribbble Sleek Footer -->
+    <footer>
+        <div class="container-fluid mt-5 p-4 glass-panel">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start ps-lg-4">
+                    <h6 class="text-muted m-0"><span class="fs-4">&copy;</span> Copyright <a href="./index.html">Weather Dashboard</a>. All Rights Reserved</h6>
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="d-flex social-links justify-content-center justify-content-md-end gap-4 align-items-center fs-5 pe-lg-4">
+                        <h6 class="lead m-0 text-muted fs-6">Follow Us</h6>
+                        <a href="https://www.facebook.com/share/1CJ9ao1JGD" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/tgb_ganesh" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/ganeshkumar-m-aa9b97280" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://github.com/Ganesh15040212/All-Projects" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Script Libraries loaded correctly in sequence -->
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./WeatherDeshboard.js"></script>
+
+    <script>
+        // ToolTips initialized securely after DOM load
+        document.addEventListener("DOMContentLoaded", function () {
+            var TiggerTooltip = [].slice.call(
+                document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            );
+            var tooltipList = TiggerTooltip.map(function (tooltipElement) {
+                return new bootstrap.Tooltip(tooltipElement);
+            });
+        });
+    </script>
+</body>
+
+</html>
