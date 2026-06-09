@@ -604,6 +604,229 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ========================================================
+   TEMPERATURE UNIT SWITCHER CAPSULE
+   ======================================================== */
+.unit-toggle-container {
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    z-index: 10;
+}
+
+.unit-toggle-pill {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    width: 78px;
+    height: 34px;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    position: relative;
+    outline: none !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.unit-toggle-pill:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.unit-toggle-pill span {
+    font-size: 0.78rem;
+    font-weight: 700;
+    z-index: 2;
+    width: 32px;
+    text-align: center;
+    user-select: none;
+}
+
+.unit-toggle-pill .c-label {
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.unit-toggle-pill .f-label {
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+}
+
+.unit-toggle-pill .toggle-slider {
+    position: absolute;
+    width: 34px;
+    height: 26px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    left: 4px;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Toggle Slider Switch States */
+.unit-toggle-pill.active-f .toggle-slider {
+    left: 38px;
+}
+
+.unit-toggle-pill.active-f .c-label {
+    color: var(--text-muted);
+}
+
+.unit-toggle-pill.active-f .f-label {
+    color: var(--text-primary);
+}
+
+/* ========================================================
+   FAVORITE CITIES CHIPS TAGS
+   ======================================================== */
+.favorite-cities-container {
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.city-chip {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    padding: 6px 12px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.city-chip:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.city-chip-remove {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0 2px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.city-chip-remove:hover {
+    color: #f43f5e;
+}
+
+/* Bookmark Active Button Style */
+.favorite-btn.active i {
+    color: #fbbf24 !important; /* Gold Star */
+    font-weight: 900 !important; /* solid star */
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+}
+
+/* ========================================================
+   ACTIVE SELECTION FOCUS GLOW FOR FORECAST STRIP
+   ======================================================== */
+.forecast-strip li {
+    cursor: pointer;
+}
+
+.forecast-strip li.active {
+    border-color: rgba(0, 242, 254, 0.4);
+    background: rgba(22, 28, 45, 0.7);
+    transform: scale(1.03) translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 242, 254, 0.15), var(--glow-effect);
+}
+
+/* Cursor pointer for Today current weather card */
+.current-weather {
+    cursor: pointer;
+}
+
+/* ========================================================
+   HOURLY FORECAST LINE CHART & LIST
+   ======================================================== */
+.hourly-forecast-panel {
+    background: var(--bg-card);
+    border-radius: 28px;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px; /* Constrains chart heights safely */
+}
+
+/* Horizontal Hour scrollable strip */
+.hourly-forecast-list {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.05) transparent;
+}
+
+.hourly-forecast-list::-webkit-scrollbar {
+    height: 5px;
+}
+
+.hourly-forecast-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+}
+
+.hourly-card {
+    flex: 0 0 105px;
+    padding: 14px 10px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hourly-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.hourly-card .hour-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.hourly-card img {
+    width: 44px;
+    height: 44px;
+    filter: drop-shadow(0 4px 6px rgba(255, 255, 255, 0.05));
+}
+
+.hourly-card .hour-temp {
+    font-family: var(--numerical-font);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ========================================================
+   AIR QUALITY INDEX (AQI) INDICATOR
+   ======================================================== */
+.aqi-card {
+    grid-column: span 2; /* Spans full horizontal width on wider displays */
+}
+
+@media (max-width: 768px) {
+    .aqi-card {
+        grid-column: span 1; /* Normal stacks on mobile sizes */
+    }
+}
+
+
+/* ========================================================
    FOOTER STYLE SHEET
    ======================================================== */
 footer {

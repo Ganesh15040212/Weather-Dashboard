@@ -33,9 +33,18 @@
             
             <!-- LEFT COLUMN - Tall Current Weather Panel -->
             <div class="col-lg-4 col-12">
-                <div class="glass-panel hero-weather-panel">
+                <div class="glass-panel hero-weather-panel position-relative">
                     
-                    <!-- Static Integrated Search Panel (Protects listeners from repainting) -->
+                    <!-- Unit Switcher Toggle Pill -->
+                    <div class="unit-toggle-container">
+                        <button type="button" class="unit-toggle-pill active-c" id="unitToggleBtn">
+                            <span class="c-label">°C</span>
+                            <span class="toggle-slider"></span>
+                            <span class="f-label">°F</span>
+                        </button>
+                    </div>
+
+                    <!-- Integrated Search Area inside Left panel -->
                     <div class="hero-search-area w-100">
                         <div class="hero-search-box">
                             <input type="search" class="form-control hero-city-input city-input"
@@ -46,14 +55,24 @@
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
+                        <button type="button" class="btn hero-search-btn favorite-btn" id="favoriteCityBtn"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bookmark City">
+                            <i class="fa-regular fa-star"></i>
+                        </button>
                         <button type="button" class="btn hero-gps-btn location-btn"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="Use current location">
                             <i class="fa-solid fa-location-dot fa-bounce"></i>
                         </button>
                     </div>
 
+                    <!-- Favorite Cities Chips Container -->
+                    <div class="favorite-cities-container w-100 mb-3 d-flex flex-wrap gap-2">
+                        <!-- Loaded dynamically via LocalStorage -->
+                    </div>
+
                     <!-- Dynamic Current Weather Segment (Injected by JS) -->
-                    <div class="current-weather w-100 d-flex flex-column align-items-center flex-grow-1">
+                    <div class="current-weather w-100 d-flex flex-column align-items-center flex-grow-1 cursor-pointer"
+                        data-bs-toggle="tooltip" title="Click to view today's hourly details">
                         <!-- Skeleton Loading State -->
                         <div class="hero-weather-illustration mt-4">
                             <div class="skeleton skeleton-circle"></div>
@@ -84,7 +103,7 @@
                     
                     <!-- 5-Day Horizontal Forecast Row -->
                     <div>
-                        <h2 class="forecast-section-title">Next 5 - Days Forecast</h2>
+                        <h2 class="forecast-section-title">Next 5 - Days Forecast <span class="text-muted fs-6 ms-2">(Click a day to view hourly forecast)</span></h2>
                         <ul class="forecast-strip weather-cards">
                             <!-- Placeholder cards -->
                             <li class="glass-card">
@@ -93,30 +112,26 @@
                                 <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
                                 <div class="forecast-metric temp"><span>-- °C</span></div>
                             </li>
-                            <li class="glass-card">
-                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
-                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
-                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
-                                <div class="forecast-metric temp"><span>-- °C</span></div>
-                            </li>
-                            <li class="glass-card">
-                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
-                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
-                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
-                                <div class="forecast-metric temp"><span>-- °C</span></div>
-                            </li>
-                            <li class="glass-card">
-                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
-                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
-                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
-                                <div class="forecast-metric temp"><span>-- °C</span></div>
-                            </li>
-                            <li class="glass-card">
-                                <h3 class="skeleton skeleton-text-block mx-auto mb-2" style="width: 60px; height: 16px;"></h3>
-                                <div class="skeleton mx-auto mb-2" style="width: 40px; height: 40px; border-radius: 50%;"></div>
-                                <div class="desc-text skeleton skeleton-text-block mx-auto mb-3" style="width: 70px; height: 14px;"></div>
-                                <div class="forecast-metric temp"><span>-- °C</span></div>
-                            </li>
+                            <!-- Placeholder cards repeat -->
+                            <li class="glass-card"><div class="skeleton mx-auto" style="width: 40px; height: 40px; border-radius: 50%;"></div></li>
+                            <li class="glass-card"><div class="skeleton mx-auto" style="width: 40px; height: 40px; border-radius: 50%;"></div></li>
+                            <li class="glass-card"><div class="skeleton mx-auto" style="width: 40px; height: 40px; border-radius: 50%;"></div></li>
+                            <li class="glass-card"><div class="skeleton mx-auto" style="width: 40px; height: 40px; border-radius: 50%;"></div></li>
+                        </ul>
+                    </div>
+
+                    <!-- HOURLY FORECAST PANEL (Line Chart & Hourly Cards Strip) -->
+                    <div class="glass-panel p-4 hourly-forecast-panel">
+                        <h3 class="forecast-section-title mb-3" id="hourlyPanelTitle">Hourly Forecast - Today</h3>
+                        
+                        <!-- Line Chart Canvas -->
+                        <div class="chart-wrapper mb-4">
+                            <canvas id="hourlyChart"></canvas>
+                        </div>
+                        
+                        <!-- Hour-by-Hour scrollable strip -->
+                        <ul class="hourly-forecast-list d-flex gap-3 overflow-x-auto p-1 list-unstyled">
+                            <!-- Injected dynamically via JS -->
                         </ul>
                     </div>
 
@@ -203,6 +218,26 @@
                                 </div>
                             </div>
 
+                            <!-- Air Quality Index (AQI) Widget -->
+                            <div class="glass-card widget-card aqi-card" data-bs-toggle="tooltip" title="Real-time Air Quality Index & pollutants">
+                                <div class="widget-card-header">
+                                    <i class="fa-solid fa-leaf"></i>
+                                    <span>Air Quality Index</span>
+                                </div>
+                                <div class="widget-card-value num-font" id="aqiValue">
+                                    --
+                                </div>
+                                <div class="level-meter-container mt-2">
+                                    <div class="level-meter-track">
+                                        <div class="level-meter-fill" id="aqiProgress" style="width: 0%; background: #38ef7d;"></div>
+                                    </div>
+                                    <div class="level-meter-status mt-2">
+                                        <span id="aqiStatus">Status: --</span>
+                                        <span class="level-meter-badge" id="pm25Value">PM2.5: -- μg/m³</span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -225,14 +260,15 @@
                         <a href="https://www.facebook.com/share/1CJ9ao1JGD" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
                         <a href="https://www.instagram.com/tgb_ganesh" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/ganeshkumar-m-aa9b97280" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="https://github.com/Ganesh15040212" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://github.com/Ganesh15040212/All-Projects" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap Script Libraries loaded correctly in sequence -->
+    <!-- Chart.js & Bootstrap Script Libraries loaded correctly in sequence -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./assets/js/popper.min.js"></script>
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
     <script src="./WeatherDeshboard.js"></script>
