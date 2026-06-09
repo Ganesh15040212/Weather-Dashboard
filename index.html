@@ -33,11 +33,13 @@
             
             <!-- LEFT COLUMN - Tall Current Weather Panel -->
             <div class="col-lg-4 col-12">
-                <div class="glass-panel hero-weather-panel position-relative">
+                <div class="glass-panel hero-weather-panel">
                     
-                    <!-- Unit Switcher Toggle Pill -->
-                    <div class="unit-toggle-container">
-                        <button type="button" class="unit-toggle-pill active-c" id="unitToggleBtn">
+                    <!-- Integrated Panel Header with Title & Unit Toggle (Prevents Overlap) -->
+                    <div class="d-flex justify-content-between align-items-center mb-4 w-100">
+                        <span class="fs-6 fw-bold text-secondary text-uppercase tracking-wider" style="letter-spacing: 1px;">Weather App</span>
+                        <button type="button" class="unit-toggle-pill active-c" id="unitToggleBtn"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Switch Temperature Unit">
                             <span class="c-label">°C</span>
                             <span class="toggle-slider"></span>
                             <span class="f-label">°F</span>

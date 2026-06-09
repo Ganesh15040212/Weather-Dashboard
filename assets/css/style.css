@@ -607,10 +607,7 @@ h1, h2, h3, h4, h5, h6 {
    TEMPERATURE UNIT SWITCHER CAPSULE
    ======================================================== */
 .unit-toggle-container {
-    position: absolute;
-    top: 24px;
-    right: 32px;
-    z-index: 10;
+    display: none; /* Removed absolute container from DOM layout */
 }
 
 .unit-toggle-pill {
@@ -908,10 +905,12 @@ footer a:hover {
     }
     .hero-weather-panel {
         text-align: center;
+        padding: 24px 20px !important; /* Reduced padding on tablet/mobile */
     }
     .hero-search-area {
         max-width: 480px;
         margin: 0 auto 25px;
+        gap: 8px; /* Slightly tighter gap */
     }
     .hero-metadata-list {
         align-items: center;
@@ -928,6 +927,20 @@ footer a:hover {
 @media (max-width: 576px) {
     .dashboard-wrapper {
         padding: 10px;
+    }
+    .hero-weather-panel {
+        padding: 20px 16px !important; /* Compact padding for small screens */
+    }
+    .hero-search-area {
+        gap: 6px; /* Narrower gaps to prevent button overflow */
+    }
+    .hero-search-btn, .hero-gps-btn {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 10px !important;
+    }
+    .hero-search-btn i, .hero-gps-btn i {
+        font-size: 0.85rem !important;
     }
     .forecast-strip li {
         flex: 0 0 calc(100% - 10px);
